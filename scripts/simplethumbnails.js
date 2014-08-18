@@ -25,6 +25,7 @@
   var jpeg = false;
   var quality = 0.8;
   var zip;
+  var file;
   var fileslength;
   var current = 0;
 
@@ -79,46 +80,45 @@
     var settings = localStorage.getItem('simplethumbnails');
     if (settings) {
       settings = JSON.parse(settings);
+      thumbwidth  = settings.thumbwidth;
+      document.querySelector('#width').value = settings.thumbwidth;
+      thumbheight = settings.thumbheight;
+      document.querySelector('#height').value = settings.thumbheight;
+      crop = !settings.crop;
+      document.querySelector('#crop').checked = !settings.crop;
+      background = settings.background;
+      document.querySelector('#bg').value = settings.background;
+      jpeg  = settings.jpeg;
+      document.querySelector('#jpeg').value = jpeg;
+      quality = settings.quality;
+      document.querySelector('#quality').value = quality * 100;
     }
-    thumbwidth  = settings.thumbwidth;
-    document.querySelector('#width').value = settings.thumbwidth;
-    thumbheight = settings.thumbheight;
-    document.querySelector('#height').value = settings.thumbheight;
-    crop = !settings.crop;
-    document.querySelector('#crop').checked = !settings.crop;
-    background = settings.background;
-    document.querySelector('#bg').value = settings.background;
-    jpeg  = settings.jpeg;
-    document.querySelector('#jpeg').value = jpeg;
-    quality = settings.quality;
-    document.querySelector('#quality').value = quality * 100;
   }
 
   function getfiles(ev) {
     s.querySelector('p').innerHTML = 'Getting images, creating thumbnails…';
     var files = ev.dataTransfer.files,
-        url = document.URL || window.webkitURL,
+        url = window.URL || window.webkitURL,
         objURL = url.createObjectURL || false;
-    if (files.length > 0) {
+    if ( files.length > 0 ) {
       var i = files.length;
-      fileslength = i;
-      while (i--) {
-        var file = files[i];
-        //log.innerHTML += '<li>Original: '+file.name+' '+'('+Math.round(file.size / 1000 * 100) / 100+'KB)</li>';
-        if (file.type.indexOf('image') === -1) { continue; }
+      while ( i-- ) {
+        var file = files[ i ];
+        if ( file.type.indexOf('image') === -1 ) { continue; }
         if(objURL) {
           loadImage(url.createObjectURL(file),file.name);
         } else {
           var reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = function (ev) {
-            loadImage(ev.target.result, file.name);
+          reader.readAsDataURL( file );
+          reader.onload = function ( ev ) {
+            loadImage(ev.target.result,file.name);
           }
         }
       }
     }
     ev.preventDefault();
   }
+
   function loadImage(file, name) {
     var img = new Image();
     img.src = file;
@@ -167,7 +167,6 @@
     current++;
     if (current === fileslength) {
       zipit();
-      t.innerHTML = '';
       s.querySelector('p').innerHTML = 'Drag and drop some images here!';
     }
   }
