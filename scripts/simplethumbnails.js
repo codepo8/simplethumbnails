@@ -102,6 +102,7 @@
         objURL = url.createObjectURL || false;
     if ( files.length > 0 ) {
       var i = files.length;
+      fileslength = i;
       while ( i-- ) {
         var file = files[ i ];
         if ( file.type.indexOf('image') === -1 ) { continue; }
@@ -171,6 +172,7 @@
     }
   }
   function zipit() {
+    current = 0;
     var zip = new JSZip();
     var imgs = o.querySelectorAll('img');
     var allimgs = imgs.length;
@@ -185,6 +187,7 @@
       zip.generate({type: 'blob'}),
       'thumbnails.zip'
     );
+    t.innerHTML = '';
   }
 
   function resize(imagewidth, imageheight, thumbwidth, thumbheight) {
