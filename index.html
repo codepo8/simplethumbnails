@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Let's make thumbnails - just drop some images here.</title>
+  <meta type="description" content="Batch generate thumbnails by dropping them into the page.">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="styles-and-fonts/styles.css" type="text/css">
+</head>
+<body>
+  <h1>Let's make thumbnails</h1>
+  <div id="mainapp">
+  <section id="dropzone">
+    <p>Checking your browser…</p>
+  </section>
+  <nav>
+    <ul>
+      <li><a class="mega-octicon octicon-home" title="home" href="#dropzone"><span>Create Thumbnails</span></a></li>
+      <li><a class="mega-octicon octicon-tools" title="settings" href="#options"><span>Set options</span></a></li>
+      <li><a class="mega-octicon octicon-info" title="help" href="#help"><span>Help &amp; Info</span></a></li>
+      <li><a class="mega-octicon octicon-comment-discussion" title="see log" href="#contact"><span>Contact &amp; Credits</span></a></li>
+      <li><a class="mega-octicon octicon-cloud-download" title="download" href=""><span>Download this</span></a></li>
+      <li><a class="mega-octicon octicon-pin" title="open pinned window" id="pin" href="#info"><span>Open as tool window</span></a></li>
+    </ul>
+  </nav>
+    <section id="options">
+      <form>
+      <canvas id="democanvas"></canvas>
+      <fieldset>
+        <legend>Thumbnail options</legend>
+        <label for="width" class="hidden">Width:</label>
+        <input id="width" type="number" name="width" value="100"> &times;
+        <label for="height" class="hidden">Height:</label>
+        <input id="height"  type="number"  name="height" value="100">
+        <input type="checkbox"  checked id="crop"><label for="crop" class="hidden">pad thumbnail</label>
+        <span class="crop"><label for="bg" class="hidden">background:</label><input type="color" value="rgb(256,256,256)" id="bg"></span>
+      </fieldset>
+      <fieldset>
+        <legend>File format</legend>
+        <input type="hidden" id="jpeg" value="1">
+        <span class="jpeg"><label for="quality">Quality</label>
+        <input type="range" max="100" min="0" value="90" id="quality"></span>
+      </fieldset>
+      <span id="previewsize"></span>
+      <div class="preview"></div>
+      <img src="images/penny-awww.jpg" style="display: none" class="demo" alt="fabulous Penelope Pickles">
+      </form>
+    </section> 
+    <section id="help">
+      <p>Hello there, I am here to create thumbnails for you!</p>
+      <p>All you need to do is drag and drop some images onto me and you get a zip file containing the thumbnails.</p>
+      <p>You can <a href="#options">alter the look and quality</a> of the thumbnails.</p>
+      <p>All this happens on your own computer, none of the images get uploaded to the cloud - you can even go offline if you want to.</p>
+      <p>If you resize me (or click the pin icon) I turn into a simple drop-things-here app.</p>
+      <p>If you have some issues with me, please <a href="#contact">get in contact</a>.</p>
+      <p>Still confused? <a href="">Check out this video!</a></p>
+      <p>Now go and <a href="#dropzone">create some thumbnails</a>.</p>
+    </section> 
+    <section id="contact">
+      <p>All the work here is done by <a href="http://twitter.com/codepo8">Chris Heilmann</a>, so send him a tweet if you're stuck.</p>
+      <p>The <a href="">source code of this is on GitHub</a>, and you can also <a href="">file issues</a> there.</p>
+      <p>Thanks must go to:</p>
+      <p><a href=" http://stuk.github.io/jszip/">Stuart Knightley for JSZip</a> , <a href="https://github.com/eligrey/FileSaver.js">Eli Grey for FileSaver</a>, <a href="https://plus.google.com/115540960342941034012/about">Joe Prince</a> for the <a href="http://www.google.com/fonts/specimen/Handlee">Handlee font</a> and GitHub for <a href="https://octicons.github.com/">Octicons</a>.
+      </p>
+      <p>Demo thumbnail photo model: <a href="https://www.facebook.com/pages/Penelope-Pickles/102583083404">Penelope Pickles</a>.</p>
+      <p>Now go and <a href="#dropzone">create some thumbnails</a>.</p>
+    </section> 
+  </div>
+  <output>
+    <ul id="thumbslist"></ul>
+  </output>
+<script src="scripts/simplethumbnails.js"></script>
+<script src="scripts/tools.js"></script>
+</body>
+</html>
