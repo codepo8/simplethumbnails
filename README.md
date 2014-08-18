@@ -6,7 +6,7 @@ Creates a set of thumbnails from a set of dropped images, downloadable as a zip.
 
 You can see the live version here: http://makethumbnails.com/#dropzone
 
-And there is a video demo on the YouTube: TODO
+And there is a video demo on the YouTube: https://www.youtube.com/watch?v=MrN1ujTHTHI
 
 ## Requirements and support
 
