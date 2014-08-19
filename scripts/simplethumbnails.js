@@ -10,6 +10,7 @@
   var s  = document.querySelector('#dropzone');
   var o  = document.querySelector('output');
   var t  = document.querySelector('#thumbslist');
+  var tt  = document.querySelector('#thumbstrigger');
   var log  = document.querySelector('#log ul');
   var f = document.querySelector('#options form');
   var c = document.querySelector('#options canvas');
@@ -39,6 +40,7 @@
       s.addEventListener('drop', getfiles, false );
       f.addEventListener('change', previewoptions,false);
       di.addEventListener('load',previewoptions, false);
+      tt.addEventListener('click',togglethumbs, false);
       pin.addEventListener('click', function(ev){
         window.open('index.html#dropzone', 'pinned', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=300,height=300');
         ev.preventDefault();
@@ -47,6 +49,12 @@
       previewoptions();
     }
   }
+  function togglethumbs(ev) {
+    this.classList.toggle('active');
+    t.classList.toggle('show');
+    ev.preventDefault();    
+  }
+
   function previewoptions() {
     grabformvalues();
     pi.innerHTML = '';
@@ -97,6 +105,7 @@
 
   function getfiles(ev) {
     s.querySelector('p').innerHTML = 'Getting images, creating thumbnails…';
+    t.innerHTML = '';
     var files = ev.dataTransfer.files,
         url = window.URL || window.webkitURL,
         objURL = url.createObjectURL || false;
@@ -160,9 +169,13 @@
     thumb.setAttribute('data-filename', thumbname);
     // log.innerHTML += '<li>Thumbnail: '+thumbname+' '+'('+Math.round(url.length / 1000 * 100) / 100+'KB)</li>';
     var item = document.createElement('li');
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = thumbname;
     var textlabel = document.createElement('span');
     textlabel.innerHTML = thumb.title;
-    item.appendChild(thumb);
+    link.appendChild(thumb);
+    item.appendChild(link);
     item.appendChild(textlabel);
     t.appendChild(item);
     current++;
@@ -187,7 +200,6 @@
       zip.generate({type: 'blob'}),
       'thumbnails.zip'
     );
-    t.innerHTML = '';
   }
 
   function resize(imagewidth, imageheight, thumbwidth, thumbheight) {

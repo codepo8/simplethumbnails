@@ -28,8 +28,37 @@ html {
     left: 50%;
     transform: translate(-50%,-50%);
   }
+  output ul {
+    opacity: 0;
+    background: #000;
+    padding: 10px;
+    margin-top: 10px;
+    overflow: auto;
+    transition: 0.5s;
+  }
+  output ul.show {
+    opacity: 1;
+  }
+  output ul li {
+    float: left;
+    padding: 10px;
+    color: #ccc;
+    background: #000;
+    font-size: 12px;
+    text-align: center;
+    list-style: none;
+    font-family: helvetica, arial, sans-serif;
+  }
+  output span {
+    display: block;
+    padding: 5px;
+  }
+  output img {
+    display: block;
+  }
+
 @media (max-width: 400px) {
-  output, nav, h1, section  {
+  nav, h1, section  {
     display: none;
   }
   .dragdrop #dropzone {
@@ -124,6 +153,10 @@ html {
     color: #fff;
     position: relative;
   }
+  nav a.active {
+    color: #69c;
+  }
+
   nav a span {
     opacity: 0;
     position: absolute;
@@ -196,10 +229,8 @@ html {
   }
   .hidden {display: none;}
 }
+
 #options .demo {
-  display: none;
-}
-output ul {
   display: none;
 }
 
