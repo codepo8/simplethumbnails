@@ -27,6 +27,7 @@
   var quality = 0.8;
   var zip;
   var file;
+  var thumbsshown = false;
   var fileslength;
   var current = 0;
 
@@ -52,7 +53,8 @@
   function togglethumbs(ev) {
     this.classList.toggle('active');
     t.classList.toggle('show');
-    ev.preventDefault();    
+    thumbsshown = !thumbsshown;
+    ev.preventDefault();
   }
 
   function previewoptions() {
@@ -105,7 +107,7 @@
 
   function getfiles(ev) {
     s.querySelector('p').innerHTML = 'Getting images, creating thumbnails…';
-    t.innerHTML = '';
+    t.innerHTML = '<li>Click any of the thumbnails to download them or <button class="mega-octicon octicon-file-zip"><span>get them all as a ZIP</span></button></li>';
     var files = ev.dataTransfer.files,
         url = window.URL || window.webkitURL,
         objURL = url.createObjectURL || false;
@@ -126,6 +128,7 @@
         }
       }
     }
+    t.querySelector('button').addEventListener('click', zipit, false);
     ev.preventDefault();
   }
 
@@ -180,8 +183,11 @@
     t.appendChild(item);
     current++;
     if (current === fileslength) {
-      zipit();
-      s.querySelector('p').innerHTML = 'Drag and drop some images here!';
+      if (!thumbsshown) {
+        zipit();
+      } else {
+        s.querySelector('p').innerHTML = 'Check out your thumbnails below!';
+      }
     }
   }
   function zipit() {
@@ -200,6 +206,7 @@
       zip.generate({type: 'blob'}),
       'thumbnails.zip'
     );
+    s.querySelector('p').innerHTML = 'Drag and drop some images here!';
   }
 
   function resize(imagewidth, imageheight, thumbwidth, thumbheight) {
